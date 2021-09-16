@@ -42,7 +42,7 @@ class LXRequest {
     // 2.添加所有的实例(请求)都有的拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('所有的实例拦截器：请求拦截成功')
+        // console.log('所有的实例拦截器：请求拦截成功')
 
         if (this.showLoading) {
           this.loading = ElLoading.service({
@@ -55,14 +55,14 @@ class LXRequest {
         return config
       },
       (err) => {
-        console.log('所有的实例拦截器：请求拦截失败')
+        // console.log('所有的实例拦截器：请求拦截失败')
         return err
       }
     )
 
     this.instance.interceptors.response.use(
       (res) => {
-        console.log('所有的实例拦截器：响应拦截成功')
+        // console.log('所有的实例拦截器：响应拦截成功')
 
         // 将loading移除
         this.loading?.close()
@@ -70,13 +70,13 @@ class LXRequest {
         const data = res.data
         if (data.returnCode === '-1001') {
           // 真实开发是在界面显示
-          console.log('请求失败，错误信息')
+          // console.log('请求失败，错误信息')
         } else {
           return data
         }
       },
       (err) => {
-        console.log('所有的实例拦截器：响应拦截失败')
+        // console.log('所有的实例拦截器：响应拦截失败')
 
         // 将loading移除
         this.loading?.close()

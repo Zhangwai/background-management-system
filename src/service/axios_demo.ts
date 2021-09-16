@@ -1,9 +1,9 @@
 import axios from 'axios'
 
 // 模拟get请求
-axios.get('http://123.207.32.32:8000/home/multidata').then((res) => {
-  console.log(res.data)
-})
+// axios.get('http://123.207.32.32:8000/home/multidata').then((res) => {
+//   console.log(res.data)
+// })
 
 // // 模拟get请求并请求参数
 // axios

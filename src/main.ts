@@ -2,9 +2,13 @@ import { createApp } from 'vue'
 
 import { globalRegister } from './global'
 
+// css初始化
+import 'normalize.css'
+import './assets/css/index.less'
+
 // 全局引入ElementPlus
 // import ElementPlus from 'element-plus'
-// import 'element-plus/dist/index.css' // 引入样式
+import 'element-plus/dist/index.css' // 引入样式
 
 import App from './App.vue'
 
