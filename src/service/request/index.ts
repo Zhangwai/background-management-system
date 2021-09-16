@@ -90,7 +90,7 @@ class LXRequest {
     )
   }
 
-  request<T>(config: LXRequestConfig): Promise<T> {
+  request<T>(config: LXRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       // 1.单个请求对请求config的处理
       if (config.interceptors?.requestInterceptor) {
@@ -127,20 +127,20 @@ class LXRequest {
     })
   }
 
-  get<T>(config: LXRequestConfig): Promise<T> {
+  get<T>(config: LXRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'GET' })
   }
 
-  post<T>(config: LXRequestConfig): Promise<T> {
+  post<T>(config: LXRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'POST' })
   }
 
-  delete<T>(config: LXRequestConfig): Promise<T> {
+  delete<T>(config: LXRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'DELETE' })
   }
 
   // 修改
-  patch<T>(config: LXRequestConfig): Promise<T> {
+  patch<T>(config: LXRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'PATCH' })
   }
 }
