@@ -16,7 +16,7 @@ import router from './router'
 import store from './store'
 
 // import './service/axios_demo'
-import lxRequest from './service'
+// import lxRequest from './service'
 
 const app = createApp(App)
 
@@ -51,20 +51,20 @@ app.mount('#app')
 //   }
 // })
 
-interface DataType {
-  data: any
-  returnCode: string
-  success: boolean
-}
+// interface DataType {
+//   data: any
+//   returnCode: string
+//   success: boolean
+// }
 
-lxRequest
-  .get<DataType>({
-    url: '/home/multidata',
-    // 是否显示loading
-    showLoading: false
-  })
-  .then((res) => {
-    console.log(res.data)
-    console.log(res.returnCode)
-    console.log(res.success)
-  })
+// lxRequest
+//   .get<DataType>({
+//     url: '/home/multidata',
+//     // 是否显示loading
+//     showLoading: false
+//   })
+//   .then((res) => {
+//     console.log(res.data)
+//     console.log(res.returnCode)
+//     console.log(res.success)
+//   })
