@@ -1,6 +1,6 @@
 <template>
   <div class="login-phone">
-    <el-form label-width="60px" :rules="rules" v-model="phone">
+    <el-form label-width="80px" :rules="rules" :model="phone">
       <!-- prop="name"匹配规则 -->
       <el-form-item label="手机号" prop="number">
         <el-input v-model="phone.number" />
@@ -18,6 +18,7 @@
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
 
+import { rules } from '../config/phone-config'
 export default defineComponent({
   setup() {
     const phone = reactive({
@@ -26,7 +27,8 @@ export default defineComponent({
     })
 
     return {
-      phone
+      phone,
+      rules
     }
   }
 })

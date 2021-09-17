@@ -39,13 +39,14 @@ export default defineComponent({
   },
   setup() {
     const isKeepPassword = ref(true)
-    // <InstanceType<typeof LoginAccount>>拿到LoginAccount导出的类型
+    // <InstanceType<typeof LoginAccount>> 拿到LoginAccount导出的类型
     const accountRef = ref<InstanceType<typeof LoginAccount>>()
 
     const handleLoginClick = () => {
       console.log('登录')
       // 因为没有传入东西，所以有可能是空的，需要加上? 可选
-      accountRef.value?.loginAction()
+      // isKeepPassword.value传入判断是否需要记住密码
+      accountRef.value?.loginAction(isKeepPassword.value)
     }
     return {
       isKeepPassword,
