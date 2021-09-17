@@ -1,18 +1,19 @@
 <template>
   <div class="login-panel">
     <h1 class="title">Kylin后台管理系统</h1>
-    <el-tabs type="border-card" stretch>
-      <el-tab-pane>
+    <el-tabs type="border-card" stretch v-model="currentTab">
+      <el-tab-pane name="account">
         <template #label>
           <span><i class="el-icon-user-solid"></i>账号登录</span>
         </template>
         <login-account ref="accountRef" />
       </el-tab-pane>
-      <el-tab-pane>
+
+      <el-tab-pane name="phone">
         <template #label>
           <span><i class="el-icon-mobile-phone"></i>手机登录</span>
         </template>
-        <login-phone />
+        <login-phone ref="phoneRef" />
       </el-tab-pane>
     </el-tabs>
 
@@ -38,20 +39,33 @@ export default defineComponent({
     LoginPhone
   },
   setup() {
+    // 1.定义属性
     const isKeepPassword = ref(true)
     // <InstanceType<typeof LoginAccount>> 拿到LoginAccount导出的类型
     const accountRef = ref<InstanceType<typeof LoginAccount>>()
+    const phoneRef = ref<InstanceType<typeof LoginPhone>>()
+    // 区分选择账号登录还是手机登录 默认账号登录
+    const currentTab = ref('account')
 
+    // 2.定义方法
     const handleLoginClick = () => {
-      console.log('登录')
-      // 因为没有传入东西，所以有可能是空的，需要加上? 可选
-      // isKeepPassword.value传入判断是否需要记住密码
-      accountRef.value?.loginAction(isKeepPassword.value)
+      if (currentTab.value === 'account') {
+        // console.log('登录')
+        // 因为没有传入东西，所以有可能是空的，需要加上? 可选
+        // isKeepPassword.value传入判断是否需要记住密码
+        accountRef.value?.loginAction(isKeepPassword.value)
+      } else {
+        // 执行手机登录逻辑
+        phoneRef.value?.loginAction()
+      }
     }
+
     return {
       isKeepPassword,
-      handleLoginClick,
-      accountRef
+      accountRef,
+      phoneRef,
+      currentTab,
+      handleLoginClick
     }
   }
 })

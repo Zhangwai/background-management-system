@@ -10,8 +10,8 @@ export const rules = {
     },
     // 规则二
     {
-      type: 'number',
-      // pattern: /^[0-9]{11,11}$/,
+      // type: 'number',
+      pattern: /^[0-9]{11,11}$/,
       message: '手机号必须是11个数字',
       trigger: 'blur'
     }
