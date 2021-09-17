@@ -1,5 +1,8 @@
 import { Module } from 'vuex'
 
+import { accountLoginRequest } from '@/service/login/login'
+import { IAccount } from '@/service/login/type'
+
 import { ILoginState } from './type'
 import { IRootState } from '../type'
 
@@ -13,15 +16,24 @@ const loginModule: Module<ILoginState, IRootState> = {
     }
   },
   getters: {},
-  mutations: {},
-  actions: {
-    accountLoginAction({ commit }, payload: any) {
-      console.log('执行accountLoginAction')
-      console.log(payload)
-    },
-    phoneLoginAction({ commit }, payload: any) {
-      console.log('执行phoneLoginAction')
+  mutations: {
+    // 保存token
+    changeToken(state, token: string) {
+      state.token = token
     }
+  },
+  actions: {
+    // { commit } 是从content中解构出来的
+    async accountLoginAction({ commit }, payload: IAccount) {
+      // 1.实现登录逻辑
+      const loginResult = await accountLoginRequest(payload)
+      console.log(loginResult)
+      const { id, token } = loginResult.data
+      commit('changeToken', token)
+    }
+    // phoneLoginAction({ commit }, payload: any) {
+    //   console.log('执行phoneLoginAction')
+    // }
   }
 }
 
