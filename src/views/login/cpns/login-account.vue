@@ -38,7 +38,7 @@ export default defineComponent({
       // 验证
       formRef.value?.validate((valid) => {
         if (valid) {
-          console.log('真正执行登录逻辑')
+          // console.log('真正执行登录逻辑')
           // 1.判断是否需要记录密码
           if (isKeepPassword) {
             // 本地缓存

@@ -14,6 +14,7 @@ import App from './App.vue'
 
 import router from './router'
 import store from './store'
+import { setupStore } from './store'
 
 // import './service/axios_demo'
 // import lxRequest from './service'
@@ -29,6 +30,7 @@ app.use(globalRegister)
 app.use(router)
 // 注册vuex
 app.use(store)
+setupStore()
 
 app.mount('#app')
 

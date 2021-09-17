@@ -1,6 +1,8 @@
 import LXRequest from './request'
 import { BASE_URL, TIME_OUT } from './request/config'
 
+import localCache from '@/utils/cache'
+
 // new LXRequest -> 一个实例对象
 const lxRequest = new LXRequest({
   baseURL: BASE_URL,
@@ -9,7 +11,8 @@ const lxRequest = new LXRequest({
   interceptors: {
     requestInterceptor: (config) => {
       // 携带token的拦截
-      const token = ''
+      // 从缓存中取到token
+      const token = localCache.getCache('token')
       if (token) {
         // headers请求头 Authorization授权
         config.headers.Authorization = `Bearer ${token}`
