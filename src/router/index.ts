@@ -14,7 +14,10 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/main',
-    component: () => import('../views/main/main.vue')
+    component: () => import('../views/main/main.vue'),
+    children: [
+      // 写死，注册所有的存在安全隐患
+    ]
   }
 ]
 
