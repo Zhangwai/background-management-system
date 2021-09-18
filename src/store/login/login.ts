@@ -71,7 +71,7 @@ const loginModule: Module<ILoginState, IRootState> = {
     //   console.log('执行phoneLoginAction')
     // }
 
-    // 用户刷新页面，vuex中的数据会消失，这里重新加载数据
+    // 用户刷新页面，vuex中的数据会消失，这里重新加载从本地获取数据
     loadLocalLogin({ commit }) {
       // 从本地获取token
       const token = localCache.getCache('token')
