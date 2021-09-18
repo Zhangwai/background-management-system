@@ -4,10 +4,10 @@
       <img class="img" src="~@/assets/img/logo.svg" alt="logo" />
       <span class="title">Vue3+TS</span>
     </div>
+    <!-- default-active当前激活菜单的 index -->
     <el-menu
       default-active="2"
       class="el-menu-vertical"
-      :collapse="collapse"
       background-color="#0c2135"
       text-color="#b7bdc3"
       active-text-color="#0a60bd"
@@ -15,26 +15,26 @@
       <template v-for="item in userMenus" :key="item.id">
         <!-- 二级菜单 -->
         <template v-if="item.type === 1">
-          <!-- 二级菜单可以展开的标题 -->
-          <el-sub-menu>
+          <!-- 二级菜单可以展开的标题 :index="item.id + ''"转为字符串，唯一标识用于记录 -->
+          <el-sub-menu :index="item.id + ''">
             <template #title>
               <i v-if="item.icon" :class="item.icon"></i>
               <span>{{ item.name }}</span>
             </template>
+            <!-- 遍历里面的item -->
+            <template v-for="subitem in item.children" :key="subitem.id">
+              <el-menu-item :index="subitem.id + ''">
+                <template #title>
+                  <i v-if="subitem.icon" :class="subitem.icon"></i>
+                  <span>{{ subitem.name }}</span>
+                </template>
+              </el-menu-item>
+            </template>
           </el-sub-menu>
-          <!-- 遍历里面的item -->
-          <template v-for="subitem in item.children" :key="subitem.id">
-            <el-menu-item>
-              <template #title>
-                <i v-if="subitem.icon" :class="subitem.icon"></i>
-                <span>{{ subitem.name }}</span>
-              </template>
-            </el-menu-item>
-          </template>
         </template>
         <!-- 一级菜单 -->
         <template v-else-if="item.type === 2">
-          <el-menu-item>
+          <el-menu-item :index="item.id + ''">
             <!-- 只有item.icon有值时，才会用到 -->
             <template #title>
               <i v-if="item.icon" :class="item.icon"></i>
