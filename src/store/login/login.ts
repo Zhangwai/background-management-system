@@ -40,8 +40,14 @@ const loginModule: Module<ILoginState, IRootState> = {
       state.userMenus = userMenus
 
       // 将userMenus 映射到 routes
-      mapMenusToRoutes(userMenus)
+      const routes = mapMenusToRoutes(userMenus)
+      // console.log(routes)
+
       // 将routes 添加到 router.main.children
+      routes.forEach((route) => {
+        // 找到main路由，再将route添加到main的children
+        router.addRoute('main', route)
+      })
     }
   },
   actions: {
