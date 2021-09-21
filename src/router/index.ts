@@ -38,6 +38,9 @@ router.beforeEach((to) => {
     if (!token) {
       return '/login'
     }
+
+    // 获取所有路由
+    console.log(router.getRoutes())
   }
 })
 
