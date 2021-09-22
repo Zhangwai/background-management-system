@@ -17,10 +17,15 @@
                   :placeholder="item.placeholder"
                   :show-password="item.type === 'password'"
                   v-bind="item.otherOptions"
+                  v-model="formData[`${item.field}`]"
                 />
               </template>
               <template v-else-if="item.type === 'select'">
-                <el-select :placeholder="item.placeholder" style="width: 100%">
+                <el-select
+                  :placeholder="item.placeholder"
+                  style="width: 100%"
+                  v-model="formData[`${item.field}`]"
+                >
                   <el-option
                     v-for="option in item.options"
                     :key="option.value"
@@ -34,6 +39,7 @@
                 <el-date-picker
                   v-bind="item.otherOptions"
                   style="width: 100%"
+                  v-model="formData[`${item.field}`]"
                 ></el-date-picker>
               </template>
             </el-form-item>
@@ -45,7 +51,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, ref, watch } from 'vue'
 import { IFormItem } from '../types'
 
 export default defineComponent({
@@ -75,10 +81,26 @@ export default defineComponent({
         sm: 24, // >= 768px 显示1个
         xs: 24 // < 768px 显示1个
       })
+    },
+    // v-model传入的值叫modelValue
+    modelValue: {
+      type: Object,
+      required: true
     }
   },
-  setup() {
-    return {}
+  emits: ['update:modelValue'],
+  setup(props, { emit }) {
+    const formData = ref({ ...props.modelValue })
+
+    // 当formData发生改变时，就向外发送新数据newValue
+    // 这才实现了双向绑定
+    watch(formData, (newValue) => emit('update:modelValue', newValue), {
+      deep: true
+    })
+
+    return {
+      formData
+    }
   }
 })
 </script>

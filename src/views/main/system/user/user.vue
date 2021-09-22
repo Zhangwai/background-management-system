@@ -1,13 +1,13 @@
 <template>
   <div class="user">
     <!-- 高级封装组件 -->
-    <lx-form v-bind="searchFormConfig" />
+    <lx-form v-bind="searchFormConfig" v-model="formData" />
     <div class="content"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import LxForm from '@/base-ui/form'
 
 import { searchFormConfig } from './config/search.config'
@@ -18,8 +18,16 @@ export default defineComponent({
     LxForm
   },
   setup() {
+    const formData = ref({
+      id: '',
+      name: '',
+      status: '',
+      createTime: ''
+    })
+
     return {
-      searchFormConfig
+      searchFormConfig,
+      formData
     }
   }
 })
