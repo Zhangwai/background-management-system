@@ -26,11 +26,12 @@ const app = createApp(App)
 // 2.插件形式使用
 app.use(globalRegister)
 
-// 注册路由
-app.use(router)
 // 注册vuex
 app.use(store)
+// 注册路由
+// 路由匹配前，先把它注册好
 setupStore()
+app.use(router)
 
 app.mount('#app')
 

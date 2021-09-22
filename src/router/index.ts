@@ -32,7 +32,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to) => {
-  // 不是登录页面才判断是否登录
+  // 页面跳转之前 不是登录页面才判断是否登录
   if (to.path !== '/login') {
     const token = localCache.getCache('token')
     if (!token) {
@@ -41,6 +41,8 @@ router.beforeEach((to) => {
 
     // 获取所有路由
     console.log(router.getRoutes())
+    // 即将要跳转到的route对象
+    console.log(to)
   }
 })
 
