@@ -6,19 +6,25 @@
       @click="handleFoldClick"
     ></i>
     <div class="content">
-      <div>面包屑</div>
+      <lx-breadcrumb :breadcrumbs="breadcrumbs" />
       <user-info />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import UserInfo from './user-info.vue'
+import LxBreadcrumb from '@/base-ui/breadcrumb'
+
+import { useStore } from '@/store'
+import { useRoute } from 'vue-router'
+import { pathMapBreadcrumbs } from '@/utils/map-menus'
 
 export default defineComponent({
   components: {
-    UserInfo
+    UserInfo,
+    LxBreadcrumb
   },
   emits: ['foldChange'],
   setup(props, { emit }) {
@@ -28,9 +34,24 @@ export default defineComponent({
       // 传到上一级main
       emit('foldChange', isFold.value)
     }
+
+    // 面包屑数据： [{name: , path: }]
+    const store = useStore()
+
+    // 数据改变时，breadcrumbs需要重新获取，使用计算属性
+    const breadcrumbs = computed(() => {
+      const userMenus = store.state.loginModule.userMenus
+
+      const route = useRoute()
+      const currentPath = route.path
+
+      return pathMapBreadcrumbs(userMenus, currentPath)
+    })
+
     return {
       isFold,
-      handleFoldClick
+      handleFoldClick,
+      breadcrumbs
     }
   }
 })
