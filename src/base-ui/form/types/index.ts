@@ -10,3 +10,11 @@ export interface IFormItem {
   // 针对特殊的属性
   otherOptions?: any
 }
+
+// 将属性合并到一起
+export interface IForm {
+  formItems: IFormItem[]
+  labelWidth?: string
+  colLayout: any
+  itemStyle: any
+}
