@@ -1,5 +1,8 @@
 <template>
   <div class="lx-form">
+    <div class="header">
+      <slot name="header"></slot>
+    </div>
     <el-form :label-width="labelWidth">
       <!-- el-row 一行 span分24等分 el-col 一列 -->
       <el-row>
@@ -47,6 +50,9 @@
         </template>
       </el-row>
     </el-form>
+    <div class="fooyer">
+      <slot name="footer"></slot>
+    </div>
   </div>
 </template>
 
