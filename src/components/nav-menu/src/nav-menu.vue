@@ -2,7 +2,7 @@
   <div class="nav-menu">
     <div class="logo">
       <img class="img" src="~@/assets/img/logo.svg" alt="logo" />
-      <span v-show="!collapse" class="title">Vue3+TS</span>
+      <span v-show="!collapse" class="title">Kylin-Vue3+TS</span>
     </div>
     <!-- default-active当前激活菜单的 index -->
     <el-menu
