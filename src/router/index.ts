@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router' //表示导入的是个类型
 
 import localCache from '@/utils/cache'
+import { firstMenu } from '@/utils/map-menus'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -40,9 +41,14 @@ router.beforeEach((to) => {
     }
 
     // 获取所有路由
-    console.log(router.getRoutes())
+    // console.log(router.getRoutes())
     // 即将要跳转到的route对象
-    console.log(to)
+    // console.log(to)
+
+    if (to.path === '/main') {
+      // main/analysis/overview
+      return firstMenu.url
+    }
   }
 })
 

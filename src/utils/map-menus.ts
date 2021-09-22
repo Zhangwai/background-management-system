@@ -1,6 +1,8 @@
 // 对menus进行映射
 import type { RouteRecordRaw } from 'vue-router'
 
+let firstMenu: any = null
+
 export function mapMenusToRoutes(useMenus: any[]): RouteRecordRaw[] {
   const routes: RouteRecordRaw[] = []
 
@@ -28,6 +30,9 @@ export function mapMenusToRoutes(useMenus: any[]): RouteRecordRaw[] {
         // find函数，会遍历所有route对象，只会找到一个
         const route = allRoutes.find((route) => route.path === menu.url)
         if (route) routes.push(route)
+        if (!firstMenu) {
+          firstMenu = menu
+        }
       } else {
         _recurseGetRoute(menu.children)
       }
@@ -37,4 +42,20 @@ export function mapMenusToRoutes(useMenus: any[]): RouteRecordRaw[] {
   _recurseGetRoute(useMenus)
 
   return routes
+}
+
+export { firstMenu }
+
+// 根据路径匹配菜单
+export function pathMapToMenu(userMenus: any[], currentPath: string): any {
+  for (const menu of userMenus) {
+    if (menu.type === 1) {
+      const findMenu = pathMapToMenu(menu.children ?? [], currentPath)
+      if (findMenu) {
+        return findMenu
+      }
+    } else if (menu.type === 2 && menu.url === currentPath) {
+      return menu
+    }
+  }
 }
