@@ -2,7 +2,16 @@
   <div class="user">
     <page-search :searchFormConfig="searchFormConfig" />
     <div class="content">
-      <lx-table :listData="userList" :propList="propList" />
+      <lx-table :listData="userList" :propList="propList">
+        <template #status="scope">
+          <el-button type="success" plain>{{
+            scope.row.enable ? '启用' : '禁用'
+          }}</el-button>
+        </template>
+        <template #createAt="scope">
+          {{ scope.row.createAt }}
+        </template>
+      </lx-table>
     </div>
   </div>
 </template>
