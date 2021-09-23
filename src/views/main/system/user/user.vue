@@ -4,10 +4,20 @@
     <div class="content">
       <lx-table
         :listData="userList"
+        :title="title"
         :propList="propList"
         :showIndexColumn="showIndexColumn"
         :showSelectColum="showSelectColum"
       >
+        <!-- 1.hander中的插槽 -->
+        <template #handerHandler>
+          <el-button size="medium" icon="el-icon-refresh">刷新</el-button>
+          <el-button size="medium" type="primary" @click="handleNewUser"
+            >新建用户</el-button
+          >
+        </template>
+
+        <!-- 2.列中的插槽 -->
         <template #status="scope">
           <el-button
             size="mini"
@@ -72,6 +82,8 @@ export default defineComponent({
     const userList = computed(() => store.state.systemModule.userList)
     const userCount = computed(() => store.state.systemModule.userCount)
 
+    const title = '用户列表'
+
     const propList = [
       { prop: 'name', label: '用户名', minWidth: '100' },
       { prop: 'realname', label: '真实姓名', minWidth: '100' },
@@ -101,6 +113,7 @@ export default defineComponent({
       searchFormConfig,
       userList,
       userCount,
+      title,
       propList,
       showIndexColumn,
       showSelectColum
