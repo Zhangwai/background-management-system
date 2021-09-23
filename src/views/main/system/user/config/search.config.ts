@@ -8,7 +8,7 @@ export const searchFormConfig: IForm = {
   },
   colLayout: {
     // 有默认值
-    // span: 8
+    span: 8
   },
   formItems: [
     {
