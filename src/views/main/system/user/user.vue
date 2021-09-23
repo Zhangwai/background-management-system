@@ -4,12 +4,19 @@
     <div class="content">
       <lx-table :listData="userList" :propList="propList">
         <template #status="scope">
-          <el-button type="success" plain>{{
-            scope.row.enable ? '启用' : '禁用'
-          }}</el-button>
+          <el-button
+            size="mini"
+            :type="scope.row.enable ? 'success' : 'danger'"
+            plain
+            >{{ scope.row.enable ? '启用' : '禁用' }}</el-button
+          >
         </template>
         <template #createAt="scope">
-          {{ scope.row.createAt }}
+          <!-- 时间格式化 -->
+          <span>{{ $filters.formatTime(scope.row.createAt) }}</span>
+        </template>
+        <template #updateAt="scope">
+          <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
         </template>
       </lx-table>
     </div>
