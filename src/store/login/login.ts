@@ -13,8 +13,8 @@ import { mapMenusToRoutes } from '@/utils/map-menus'
 
 import { IAccount } from '@/service/login/type'
 
-import { ILoginState } from './type'
-import { IRootState } from '../type'
+import { ILoginState } from './types'
+import { IRootState } from '../types'
 
 const loginModule: Module<ILoginState, IRootState> = {
   // 命名空间

@@ -7,7 +7,8 @@ export const searchFormConfig: IForm = {
     padding: '10px 30px'
   },
   colLayout: {
-    span: 8
+    // 有默认值
+    // span: 8
   },
   formItems: [
     {
