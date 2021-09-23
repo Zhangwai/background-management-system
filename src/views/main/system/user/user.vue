@@ -2,7 +2,12 @@
   <div class="user">
     <page-search :searchFormConfig="searchFormConfig" />
     <div class="content">
-      <lx-table :listData="userList" :propList="propList">
+      <lx-table
+        :listData="userList"
+        :propList="propList"
+        :showIndexColumn="showIndexColumn"
+        :showSelectColum="showSelectColum"
+      >
         <template #status="scope">
           <el-button
             size="mini"
@@ -17,6 +22,20 @@
         </template>
         <template #updateAt="scope">
           <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
+        </template>
+        <template #handler>
+          <div class="hander-btns">
+            <el-button size="mini" type="text" icon="el-icon-edit"
+              >编辑</el-button
+            >
+            <el-button
+              size="mini"
+              type="text"
+              icon="el-icon-delete"
+              style="color: red"
+              >删除</el-button
+            >
+          </div>
         </template>
       </lx-table>
     </div>
@@ -69,14 +88,22 @@ export default defineComponent({
         label: '更新时间',
         minWidth: '250',
         slotName: 'updateAt'
-      }
+      },
+      { label: '操作', minWidth: '120', slotName: 'handler' }
     ]
+
+    // 是否显示序号
+    const showIndexColumn = true
+    // 是否显示选中框
+    const showSelectColum = true
 
     return {
       searchFormConfig,
       userList,
       userCount,
-      propList
+      propList,
+      showIndexColumn,
+      showSelectColum
     }
   }
 })
