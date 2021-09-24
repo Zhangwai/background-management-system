@@ -16,6 +16,7 @@
       </template>
 
       <!-- 2.列中的插槽 -->
+      <!-- 这个应该不是公共的插槽 -->
       <template #status="scope">
         <el-button
           size="mini"
@@ -44,6 +45,17 @@
             >删除</el-button
           >
         </div>
+      </template>
+
+      <!-- 在pahe-content中动态插入剩余的插槽 -->
+      <template
+        v-for="item in otherPropSlots"
+        :key="item.prop"
+        #[item.slotName]="scope"
+      >
+        <template v-if="item.slotName">
+          <slot :name="item.slotName" :row="scope.row"></slot>
+        </template>
       </template>
     </lx-table>
   </div>
@@ -100,11 +112,23 @@ export default defineComponent({
       store.getters[`systemModule/pageListCount`](props.pageName)
     )
 
+    // 获取其他的动态插槽名称
+    const otherPropSlots = props.contentTableConfig?.propList.filter(
+      (item: any) => {
+        if (item.slotName === 'status') return false
+        if (item.slotName === 'createAt') return false
+        if (item.slotName === 'updateAt') return false
+        if (item.slotName === 'handler') return false
+        return true
+      }
+    )
+
     return {
       pageInfo,
       listData,
       dataCount,
-      getPageData
+      getPageData,
+      otherPropSlots
     }
   }
 })
