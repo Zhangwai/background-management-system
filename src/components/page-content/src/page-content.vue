@@ -66,17 +66,22 @@ export default defineComponent({
     LxTable
   },
   setup(props) {
-    // 网络请求
     const store = useStore()
-    store.dispatch('systemModule/getPageListAction', {
-      pageName: props.pageName,
-      // 查询条件
-      queryInfo: {
-        offset: 0, //偏移量
-        size: 10 // 一个页面展示10条数据
-      }
-    })
+    // 发送网络请求 searchInfo是搜索时的查询条件
+    const getPageData = (searchInfo: any = {}) => {
+      store.dispatch('systemModule/getPageListAction', {
+        pageName: props.pageName,
+        // 查询条件
+        queryInfo: {
+          offset: 0, //偏移量
+          size: 10, // 一个页面展示10条数据
+          ...searchInfo
+        }
+      })
+    }
+    getPageData()
 
+    // 从vuex中获取数据
     const listData = computed(() =>
       store.getters[`systemModule/pageListData`](props.pageName)
     )
@@ -84,7 +89,8 @@ export default defineComponent({
 
     return {
       listData,
-      userCount
+      userCount,
+      getPageData
     }
   }
 })

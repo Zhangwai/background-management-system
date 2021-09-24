@@ -24,17 +24,29 @@ export const searchFormConfig: IForm = {
       placeholder: '请输入用户名'
     },
     {
-      field: 'status',
+      field: 'realname',
+      type: 'input',
+      label: '真实姓名',
+      placeholder: '请输入真实姓名'
+    },
+    {
+      field: 'cellphone',
+      type: 'input',
+      label: '电话号码',
+      placeholder: '请输入电话号码'
+    },
+    {
+      field: 'enable',
       type: 'select',
-      label: '状态',
-      placeholder: '请选择状态',
+      label: '用户状态',
+      placeholder: '请选择用户状态',
       options: [
-        { title: '工作', value: '工作' },
-        { title: '休假', value: '休假' }
+        { title: '启用', value: 1 },
+        { title: '禁用', value: 0 }
       ]
     },
     {
-      field: 'createTime',
+      field: 'createAt',
       type: 'datepicker',
       label: '创建时间',
       otherOptions: {
