@@ -1,6 +1,6 @@
 <template>
   <div class="page-content">
-    <lx-table :listData="userList" v-bind="contentTableConfig">
+    <lx-table :listData="listData" v-bind="contentTableConfig">
       <!-- 1.hander中的插槽 -->
       <template #handerHandler>
         <el-button size="medium" icon="el-icon-refresh">刷新</el-button>
@@ -56,16 +56,20 @@ export default defineComponent({
     contentTableConfig: {
       type: Object,
       required: true
+    },
+    pageName: {
+      type: String,
+      required: true
     }
   },
   components: {
     LxTable
   },
-  setup() {
+  setup(props) {
     // 网络请求
     const store = useStore()
     store.dispatch('systemModule/getPageListAction', {
-      pageUrl: '/users/list',
+      pageName: props.pageName,
       // 查询条件
       queryInfo: {
         offset: 0, //偏移量
@@ -73,10 +77,13 @@ export default defineComponent({
       }
     })
 
-    const userList = computed(() => store.state.systemModule.userList)
+    const listData = computed(() =>
+      store.getters[`systemModule/pageListData`](props.pageName)
+    )
     const userCount = computed(() => store.state.systemModule.userCount)
+
     return {
-      userList,
+      listData,
       userCount
     }
   }

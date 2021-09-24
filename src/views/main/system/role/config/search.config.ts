@@ -7,7 +7,7 @@ export const searchFormConfig: IForm = {
   //   padding: '10px 30px'
   // },
   // colLayout: {
-  //   // 有默认值
+  //   // 有默认值可不写
   //   span: 8
   // },
   formItems: [
@@ -20,18 +20,14 @@ export const searchFormConfig: IForm = {
     {
       field: 'name',
       type: 'input',
-      label: '用户名',
-      placeholder: '请输入用户名'
+      label: '角色名',
+      placeholder: '请输入角色名'
     },
     {
-      field: 'status',
-      type: 'select',
-      label: '状态',
-      placeholder: '请选择状态',
-      options: [
-        { title: '工作', value: '工作' },
-        { title: '休假', value: '休假' }
-      ]
+      field: 'intro',
+      type: 'input',
+      label: '权限名称',
+      placeholder: '请输入权限名称'
     },
     {
       field: 'createTime',
