@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, watch, computed } from 'vue'
+import { defineComponent, PropType, ref, watch } from 'vue'
 import { IFormItem } from '../types'
 
 export default defineComponent({
@@ -97,12 +97,6 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const formData = ref({ ...props.modelValue })
-
-    // 监听props中的属性，需要写成函数
-    watch(
-      () => props.modelValue,
-      (newValue) => (formData.value = { ...newValue })
-    )
 
     // 当formData发生改变时，就向外发送新数据newValue
     // 这才实现了双向绑定

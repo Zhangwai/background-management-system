@@ -51,7 +51,10 @@ export default defineComponent({
 
     // 2.优化二：重置按钮
     const handleResetClick = () => {
-      formData.value = formOriginData
+      // formData.value = formOriginData
+      for (const key in formOriginData) {
+        formData.value[`${key}`] = formOriginData[key]
+      }
     }
 
     return {
