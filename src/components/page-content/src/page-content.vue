@@ -1,6 +1,12 @@
 <template>
   <div class="page-content">
-    <lx-table :listData="listData" v-bind="contentTableConfig">
+    <lx-table
+      :listData="listData"
+      v-bind="contentTableConfig"
+      :listCount="dataCount"
+      v-model:page="pageInfo"
+    >
+      <!-- v-model:page取了个page的名字 -->
       <!-- 1.hander中的插槽 -->
       <template #handerHandler>
         <el-button size="medium" icon="el-icon-refresh">刷新</el-button>
@@ -44,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, ref, watch } from 'vue'
 
 // 自己的useStore
 import { useStore } from '@/store'
@@ -67,14 +73,19 @@ export default defineComponent({
   },
   setup(props) {
     const store = useStore()
+
+    // 双向绑定pageInfo
+    const pageInfo = ref({ currentPage: 0, pageSize: 10 })
+    watch(pageInfo, () => getPageData())
+
     // 发送网络请求 searchInfo是搜索时的查询条件
     const getPageData = (searchInfo: any = {}) => {
       store.dispatch('systemModule/getPageListAction', {
         pageName: props.pageName,
         // 查询条件
         queryInfo: {
-          offset: 0, //偏移量
-          size: 10, // 一个页面展示10条数据
+          offset: pageInfo.value.currentPage * pageInfo.value.pageSize, //偏移量
+          size: pageInfo.value.pageSize, // 一个页面展示10条数据
           ...searchInfo
         }
       })
@@ -85,11 +96,14 @@ export default defineComponent({
     const listData = computed(() =>
       store.getters[`systemModule/pageListData`](props.pageName)
     )
-    const userCount = computed(() => store.state.systemModule.usersCount)
+    const dataCount = computed(() =>
+      store.getters[`systemModule/pageListCount`](props.pageName)
+    )
 
     return {
+      pageInfo,
       listData,
-      userCount,
+      dataCount,
       getPageData
     }
   }

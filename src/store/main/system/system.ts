@@ -42,6 +42,12 @@ const systemModule: Module<ISystemState, IRootState> = {
         //     return state.roleList
         // }
       }
+    },
+    pageListCount(state) {
+      return (pageName: string) => {
+        // 优化
+        return (state as any)[`${pageName}Count`]
+      }
     }
   },
   actions: {
