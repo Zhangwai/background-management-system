@@ -1,7 +1,7 @@
 <template>
   <div class="user">
     <page-search :searchFormConfig="searchFormConfig" />
-    <page-content :contentTableConfig="contentTableConfig" pageName="user" />
+    <page-content :contentTableConfig="contentTableConfig" pageName="users" />
   </div>
 </template>
 
@@ -15,7 +15,7 @@ import { searchFormConfig } from './config/search.config'
 import { contentTableConfig } from './config/content.config'
 
 export default defineComponent({
-  name: 'user',
+  name: 'users',
   components: {
     PageSearch,
     PageContent

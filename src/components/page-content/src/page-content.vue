@@ -80,7 +80,7 @@ export default defineComponent({
     const listData = computed(() =>
       store.getters[`systemModule/pageListData`](props.pageName)
     )
-    const userCount = computed(() => store.state.systemModule.userCount)
+    const userCount = computed(() => store.state.systemModule.usersCount)
 
     return {
       listData,
