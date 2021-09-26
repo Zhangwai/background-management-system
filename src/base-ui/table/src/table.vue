@@ -8,13 +8,15 @@
         </div>
       </slot>
     </div>
+    <!-- 获取数据：selection选中会触发selection-change事件 -->
+    <!-- row-key="id"、:tree-props="{ children: 'children' }"菜单页面才需要，不能写死 -->
     <el-table
       :data="listData"
       border
       style="width: 100%"
       @selection-change="handleSelectionChange"
+      v-bind="childrenProps"
     >
-      <!-- 获取数据：selection选中会触发selection-change事件 -->
       <el-table-column
         v-if="showSelectColum"
         type="selection"
@@ -38,7 +40,7 @@
         </el-table-column>
       </template>
     </el-table>
-    <div class="footer">
+    <div class="footer" v-if="showFooter">
       <slot name="footer">
         <el-pagination
           :current-page="page.currentPage"
@@ -84,9 +86,17 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
+    showFooter: {
+      type: Boolean,
+      default: true
+    },
     page: {
       type: Object,
       default: () => ({ currentPage: 0, pageSize: 10 })
+    },
+    childrenProps: {
+      type: Object,
+      default: () => ({})
     }
   },
   emits: ['selectionChange', 'update:page'],

@@ -2,6 +2,7 @@
   <div class="goods">
     <page-search :searchFormConfig="searchFormConfig" />
     <page-content :contentTableConfig="contentTableConfig" pageName="goods">
+      <!-- 插槽，配置goods私有的 -->
       <template #oldPrice="scope">{{ '￥' + scope.row.oldPrice }}</template>
       <template #newPrice="scope">{{ '￥' + scope.row.newPrice }}</template>
       <template #image="scope">

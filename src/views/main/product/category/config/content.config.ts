@@ -34,7 +34,7 @@ export const contentTableConfig = {
     {
       prop: 'categoryId',
       label: '分类号',
-      minWidth: '60',
+      minWidth: '70',
       slotName: 'categoryId'
     },
     {
