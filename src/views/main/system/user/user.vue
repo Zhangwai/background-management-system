@@ -46,9 +46,22 @@ export default defineComponent({
     const [pageContentRef, handleResetClick, handleSearchClick] =
       usePageSearch()
 
-    // 新建、编辑的hooks
+    // pageModal新建、编辑的hooks
+    const newCallBack = () => {
+      const passwordItem = modalConfig.formItems.find(
+        (item) => item.field === 'password'
+      )
+      // 确定有值 ! 不隐藏
+      passwordItem!.isHidden = false
+    }
+    const editCallBack = () => {
+      const passwordItem = modalConfig.formItems.find(
+        (item) => item.field === 'password'
+      )
+      passwordItem!.isHidden = true
+    }
     const [pageModalRef, defaultInfo, handleNewData, handleEditData] =
-      usePageModal()
+      usePageModal(newCallBack, editCallBack)
 
     return {
       searchFormConfig,
