@@ -36,7 +36,7 @@
       <template #updateAt="scope">
         <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
       </template>
-      <template #handler>
+      <template #handler="scope">
         <div class="hander-btns">
           <el-button v-if="isUpdate" size="mini" type="text" icon="el-icon-edit"
             >编辑</el-button
@@ -47,6 +47,7 @@
             type="text"
             icon="el-icon-delete"
             style="color: red"
+            @click="handleDeleteClick(scope.row)"
             >删除</el-button
           >
         </div>
@@ -100,8 +101,8 @@ export default defineComponent({
     const isUpdate = usePermission(props.pageName, 'update')
     const isQuery = usePermission(props.pageName, 'query')
 
-    // 1.双向绑定pageInfo
-    const pageInfo = ref({ currentPage: 0, pageSize: 10 })
+    // 1.双向绑定pageInfo 默认从第一页开始
+    const pageInfo = ref({ currentPage: 1, pageSize: 10 })
     watch(pageInfo, () => getPageData())
 
     // 2.发送查询网络请求 searchInfo是搜索时的查询条件
@@ -112,7 +113,7 @@ export default defineComponent({
         pageName: props.pageName,
         // 查询条件
         queryInfo: {
-          offset: pageInfo.value.currentPage * pageInfo.value.pageSize, //偏移量
+          offset: (pageInfo.value.currentPage - 1) * pageInfo.value.pageSize, //偏移量
           size: pageInfo.value.pageSize, // 一个页面展示10条数据
           ...searchInfo
         }
@@ -139,6 +140,15 @@ export default defineComponent({
       }
     )
 
+    // 5.删除操作
+    const handleDeleteClick = (item: any) => {
+      console.log(item)
+      store.dispatch('systemModule/deletePageDataAction', {
+        pageName: props.pageName,
+        id: item.id
+      })
+    }
+
     return {
       pageInfo,
       listData,
@@ -147,7 +157,8 @@ export default defineComponent({
       otherPropSlots,
       isCreate,
       isDelete,
-      isUpdate
+      isUpdate,
+      handleDeleteClick
     }
   }
 })
