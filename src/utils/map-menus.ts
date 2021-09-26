@@ -108,3 +108,24 @@ export function pathMapBreadcrumbs(userMenus: any[], currentPath: string) {
 
   return breadcrumbs
 }
+
+// 从userMenus中取到所有的按钮权限
+export function mapMenusToPermission(userMenus: any[]) {
+  const permissions: string[] = []
+  // 递归
+  const _recurseGetPermission = (menus: any[]) => {
+    for (const menu of menus) {
+      // 1,2级都不是想要的
+      if (menu.type === 1 || menu.type === 2) {
+        _recurseGetPermission(menu.children ?? [])
+      } else if (menu.type === 3) {
+        permissions.push(menu.permission)
+      }
+    }
+  }
+
+  // 调用递归
+  _recurseGetPermission(userMenus)
+
+  return permissions
+}

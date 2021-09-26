@@ -9,7 +9,7 @@ import {
 import router from '@/router'
 
 import localCache from '@/utils/cache'
-import { mapMenusToRoutes } from '@/utils/map-menus'
+import { mapMenusToRoutes, mapMenusToPermission } from '@/utils/map-menus'
 
 import { IAccount } from '@/service/login/type'
 
@@ -23,7 +23,8 @@ const loginModule: Module<ILoginState, IRootState> = {
     return {
       token: '',
       userInfo: {},
-      userMenus: []
+      userMenus: [],
+      permissions: []
     }
   },
   getters: {},
@@ -48,6 +49,12 @@ const loginModule: Module<ILoginState, IRootState> = {
         // 找到main路由，再将route添加到main的children
         router.addRoute('main', route)
       })
+
+      // 获取用户按钮的权限
+      const permission = mapMenusToPermission(userMenus)
+      // console.log(permission)
+      // 保存权限
+      state.permissions = permission
     }
   },
   actions: {

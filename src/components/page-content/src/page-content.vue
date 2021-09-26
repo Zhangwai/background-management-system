@@ -10,7 +10,11 @@
       <!-- 1.hander中的插槽 -->
       <template #handerHandler>
         <el-button size="medium" icon="el-icon-refresh">刷新</el-button>
-        <el-button size="medium" type="primary" @click="handleNewUser"
+        <el-button
+          v-if="isCreate"
+          size="medium"
+          type="primary"
+          @click="handleNewUser"
           >新建用户</el-button
         >
       </template>
@@ -34,10 +38,11 @@
       </template>
       <template #handler>
         <div class="hander-btns">
-          <el-button size="mini" type="text" icon="el-icon-edit"
+          <el-button v-if="isUpdate" size="mini" type="text" icon="el-icon-edit"
             >编辑</el-button
           >
           <el-button
+            v-if="isDelete"
             size="mini"
             type="text"
             icon="el-icon-delete"
@@ -68,6 +73,8 @@ import { defineComponent, computed, ref, watch } from 'vue'
 // 自己的useStore
 import { useStore } from '@/store'
 
+import { usePermission } from '@/hooks/usePermission'
+
 import LxTable from '@/base-ui/table'
 
 export default defineComponent({
@@ -87,12 +94,20 @@ export default defineComponent({
   setup(props) {
     const store = useStore()
 
+    // 获取操作权限
+    const isCreate = usePermission(props.pageName, 'create')
+    const isDelete = usePermission(props.pageName, 'delete')
+    const isUpdate = usePermission(props.pageName, 'update')
+    const isQuery = usePermission(props.pageName, 'query')
+
     // 1.双向绑定pageInfo
     const pageInfo = ref({ currentPage: 0, pageSize: 10 })
     watch(pageInfo, () => getPageData())
 
-    // 2.发送网络请求 searchInfo是搜索时的查询条件
+    // 2.发送查询网络请求 searchInfo是搜索时的查询条件
     const getPageData = (searchInfo: any = {}) => {
+      // 如果没有查询权限，直接退出，不发送网络请求
+      if (!isQuery) return
       store.dispatch('systemModule/getPageListAction', {
         pageName: props.pageName,
         // 查询条件
@@ -129,7 +144,10 @@ export default defineComponent({
       listData,
       dataCount,
       getPageData,
-      otherPropSlots
+      otherPropSlots,
+      isCreate,
+      isDelete,
+      isUpdate
     }
   }
 })
