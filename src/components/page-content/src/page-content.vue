@@ -14,7 +14,7 @@
           v-if="isCreate"
           size="medium"
           type="primary"
-          @click="handleNewUser"
+          @click="handleNewClick"
           >新建用户</el-button
         >
       </template>
@@ -38,7 +38,12 @@
       </template>
       <template #handler="scope">
         <div class="hander-btns">
-          <el-button v-if="isUpdate" size="mini" type="text" icon="el-icon-edit"
+          <el-button
+            v-if="isUpdate"
+            size="mini"
+            type="text"
+            icon="el-icon-edit"
+            @click="handleEditClick(scope.row)"
             >编辑</el-button
           >
           <el-button
@@ -92,7 +97,8 @@ export default defineComponent({
   components: {
     LxTable
   },
-  setup(props) {
+  emits: ['newBtnClick', 'editBtnClick'],
+  setup(props, { emit }) {
     const store = useStore()
 
     // 获取操作权限
@@ -140,13 +146,19 @@ export default defineComponent({
       }
     )
 
-    // 5.删除操作
+    // 5.删除/新建/编辑操作
     const handleDeleteClick = (item: any) => {
       console.log(item)
       store.dispatch('systemModule/deletePageDataAction', {
         pageName: props.pageName,
         id: item.id
       })
+    }
+    const handleNewClick = () => {
+      emit('newBtnClick')
+    }
+    const handleEditClick = (item: any) => {
+      emit('editBtnClick', item)
     }
 
     return {
@@ -158,7 +170,9 @@ export default defineComponent({
       isCreate,
       isDelete,
       isUpdate,
-      handleDeleteClick
+      handleDeleteClick,
+      handleNewClick,
+      handleEditClick
     }
   }
 })

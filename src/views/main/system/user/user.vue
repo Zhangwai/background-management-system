@@ -9,8 +9,14 @@
       :contentTableConfig="contentTableConfig"
       pageName="users"
       ref="pageContentRef"
+      @newBtnClick="handleNewData"
+      @editBtnClick="handleEditData"
     />
-    <page-modal :modalConfig="modalConfig" />
+    <page-modal
+      :modalConfig="modalConfig"
+      ref="pageModalRef"
+      :defaultInfo="defaultInfo"
+    />
   </div>
 </template>
 
@@ -26,6 +32,7 @@ import { contentTableConfig } from './config/content.config'
 import { modalConfig } from './config/modal.config'
 
 import { usePageSearch } from '@/hooks/usePageSearch'
+import { usePageModal } from '@/hooks/usePageModal'
 
 export default defineComponent({
   name: 'users',
@@ -39,13 +46,21 @@ export default defineComponent({
     const [pageContentRef, handleResetClick, handleSearchClick] =
       usePageSearch()
 
+    // 新建、编辑的hooks
+    const [pageModalRef, defaultInfo, handleNewData, handleEditData] =
+      usePageModal()
+
     return {
       searchFormConfig,
       contentTableConfig,
       pageContentRef,
       handleResetClick,
       handleSearchClick,
-      modalConfig
+      modalConfig,
+      handleNewData,
+      handleEditData,
+      pageModalRef,
+      defaultInfo
     }
   }
 })

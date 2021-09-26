@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 
 import LxForm from '@/base-ui/form'
 
@@ -24,14 +24,27 @@ export default defineComponent({
     modalConfig: {
       type: Object,
       required: true
+    },
+    defaultInfo: {
+      type: Object,
+      default: () => ({})
     }
   },
   components: {
     LxForm
   },
-  setup() {
-    const dialogVisible = ref(true)
-    const formData = ref({})
+  setup(props) {
+    const dialogVisible = ref(false)
+    const formData = ref<any>({})
+
+    watch(
+      () => props.defaultInfo,
+      (newValue) => {
+        for (const item of props.modalConfig.formItems) {
+          formData.value[`${item.field}`] = newValue[`${item.field}`]
+        }
+      }
+    )
     return {
       dialogVisible,
       formData
