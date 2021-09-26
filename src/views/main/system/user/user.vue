@@ -10,6 +10,7 @@
       pageName="users"
       ref="pageContentRef"
     />
+    <page-modal :modalConfig="modalConfig" />
   </div>
 </template>
 
@@ -18,9 +19,11 @@ import { defineComponent } from 'vue'
 
 import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
+import PageModal from '@/components/page-modal'
 
 import { searchFormConfig } from './config/search.config'
 import { contentTableConfig } from './config/content.config'
+import { modalConfig } from './config/modal.config'
 
 import { usePageSearch } from '@/hooks/usePageSearch'
 
@@ -28,7 +31,8 @@ export default defineComponent({
   name: 'users',
   components: {
     PageSearch,
-    PageContent
+    PageContent,
+    PageModal
   },
   setup() {
     // 重置、搜索的hooks
@@ -40,7 +44,8 @@ export default defineComponent({
       contentTableConfig,
       pageContentRef,
       handleResetClick,
-      handleSearchClick
+      handleSearchClick,
+      modalConfig
     }
   }
 })
