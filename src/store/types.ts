@@ -5,6 +5,8 @@ import { ISystemState } from './main/system/types'
 export interface IRootState {
   name: string
   age: number
+  entirRole: any[]
+  entirDepartment: any[]
 }
 
 // setup中使用useStore技巧

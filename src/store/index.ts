@@ -5,16 +5,47 @@ import { IRootState, IStoreType } from './types'
 import loginModule from './login/login'
 import systemModule from './main/system/system'
 
+import { getPageListData } from '@/service/main/system/system'
+
 const store = createStore<IRootState>({
   state() {
     return {
       name: 'Kylin',
-      age: 21
+      age: 21,
+      entirRole: [],
+      entirDepartment: []
     }
   },
   getters: {},
-  mutations: {},
-  actions: {},
+  mutations: {
+    changeEntireRole(state, list) {
+      state.entirRole = list
+    },
+    changeEntireDepartment(state, list) {
+      state.entirDepartment = list
+    }
+  },
+  actions: {
+    // 请求初始化的数据，如：角色、部门
+    async getInitialDataAction({ commit }) {
+      // 1.请求角色和部门数据
+      const roleResult = await getPageListData('/role/list', {
+        offset: 0,
+        size: 1000
+      })
+      // 取别名
+      const { list: roleList } = roleResult.data
+      const departmentResult = await getPageListData('/department/list', {
+        offset: 0,
+        size: 1000
+      })
+      const { list: departmentList } = departmentResult.data
+
+      // 2.保存数据
+      commit('changeEntireRole', roleList)
+      commit('changeEntireDepartment', departmentList)
+    }
+  },
   modules: {
     loginModule,
     systemModule
@@ -24,6 +55,7 @@ const store = createStore<IRootState>({
 // 对store中的数据进行初始化
 export function setupStore() {
   store.dispatch('loginModule/loadLocalLogin')
+  store.dispatch('getInitialDataAction')
 }
 
 // 为state在Vue+TS中更好用

@@ -29,24 +29,18 @@ export const modalConfig: IForm = {
       placeholder: '请输入电话号码'
     },
     {
-      field: 'role',
+      field: 'roleId',
       type: 'select',
       label: '选择角色',
       placeholder: '请选择用户角色',
-      options: [
-        { title: '启用', value: 1 },
-        { title: '禁用', value: 0 }
-      ]
+      options: []
     },
     {
-      field: 'enable',
+      field: 'departmentId',
       type: 'select',
       label: '选择部门',
       placeholder: '请选择用户部门',
-      options: [
-        { title: '启用', value: 1 },
-        { title: '禁用', value: 0 }
-      ]
+      options: []
     }
   ],
   colLayout: { span: 24 },
