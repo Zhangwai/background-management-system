@@ -15,7 +15,7 @@
           size="medium"
           type="primary"
           @click="handleNewClick"
-          >新建用户</el-button
+          >新建数据</el-button
         >
       </template>
 
