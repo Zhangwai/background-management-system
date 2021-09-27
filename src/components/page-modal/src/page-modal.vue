@@ -11,7 +11,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="dialogVisible = false"
+          <el-button type="primary" @click="handleConfirmClick"
             >确 定</el-button
           >
         </span>
@@ -22,6 +22,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
+import { useStore } from 'vuex'
 
 import LxForm from '@/base-ui/form'
 
@@ -34,6 +35,10 @@ export default defineComponent({
     defaultInfo: {
       type: Object,
       default: () => ({})
+    },
+    pageName: {
+      type: String,
+      required: true
     }
   },
   components: {
@@ -51,9 +56,32 @@ export default defineComponent({
         }
       }
     )
+
+    // 点击确定按钮的逻辑
+    const store = useStore()
+    const handleConfirmClick = () => {
+      dialogVisible.value = false
+      // 区分是新建按钮还是编辑按钮
+      if (Object.keys(props.defaultInfo).length) {
+        // 编辑按钮
+        store.dispatch('systemModule/editPageDataAction', {
+          pageName: props.pageName,
+          editData: { ...formData.value },
+          id: props.defaultInfo.id
+        })
+      } else {
+        // 新建按钮
+        store.dispatch('systemModule/createPageDataAction', {
+          pageName: props.pageName,
+          newData: { ...formData.value }
+        })
+      }
+    }
+
     return {
       dialogVisible,
-      formData
+      formData,
+      handleConfirmClick
     }
   }
 })
