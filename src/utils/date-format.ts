@@ -12,5 +12,6 @@ export function formatUtcString(
   utcString: string,
   format: string = DATE_TIME_FORMAT
 ) {
-  return dayjs.utc(utcString).format(format)
+  // utcOffset(480)修改为东八区时间即北京时间
+  return dayjs.utc(utcString).utcOffset(480).format(format)
 }
