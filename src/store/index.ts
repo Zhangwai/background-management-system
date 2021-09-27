@@ -55,7 +55,7 @@ const store = createStore<IRootState>({
 // 对store中的数据进行初始化
 export function setupStore() {
   store.dispatch('loginModule/loadLocalLogin')
-  store.dispatch('getInitialDataAction')
+  // store.dispatch('getInitialDataAction')
 }
 
 // 为state在Vue+TS中更好用

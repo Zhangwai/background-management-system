@@ -8,7 +8,7 @@
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item icon="el-icon-circle-close"
+          <el-dropdown-item icon="el-icon-circle-close" @click="handleExitClick"
             >退出登录</el-dropdown-item
           >
           <el-dropdown-item divided icon="el-icon-user"
@@ -27,15 +27,28 @@
 import { defineComponent, computed } from 'vue'
 import { useStore } from '@/store'
 
+import localCache from '@/utils/cache'
+
+import { useRouter } from 'vue-router'
+
 export default defineComponent({
   setup() {
     const store = useStore()
     const userName = computed(() => store.state.loginModule.userInfo.name)
     const circleUrl =
       'https://portrait.gitee.com/uploads/avatars/user/2793/8380595_liux1118_1628671708.png!avatar200'
+
+    // 退出登录
+    const router = useRouter()
+    const handleExitClick = () => {
+      localCache.deleteCache('token')
+      router.push('/main')
+    }
+
     return {
       userName,
-      circleUrl
+      circleUrl,
+      handleExitClick
     }
   }
 })
