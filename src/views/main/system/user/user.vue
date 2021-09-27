@@ -13,7 +13,7 @@
       @editBtnClick="handleEditData"
     />
     <page-modal
-      :modalConfig="modalConfig"
+      :modalConfig="modalConfigRef"
       ref="pageModalRef"
       :defaultInfo="defaultInfo"
     />
@@ -21,7 +21,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
+import { useStore } from '@/store'
 
 import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
@@ -46,7 +47,7 @@ export default defineComponent({
     const [pageContentRef, handleResetClick, handleSearchClick] =
       usePageSearch()
 
-    // pageModal新建、编辑的hooks
+    // 1.pageModal新建、编辑的hooks 处理密码的逻辑
     const newCallBack = () => {
       const passwordItem = modalConfig.formItems.find(
         (item) => item.field === 'password'
@@ -60,6 +61,28 @@ export default defineComponent({
       )
       passwordItem!.isHidden = true
     }
+
+    // 2.动态添加角色和部门的逻辑
+    const store = useStore()
+    const modalConfigRef = computed(() => {
+      const roleItem = modalConfig.formItems.find(
+        (item) => item.field === 'roleId'
+      )
+      roleItem!.options = store.state.entirRole.map((item) => {
+        return { title: item.name, value: item.id }
+      })
+
+      const departmentItem = modalConfig.formItems.find(
+        (item) => item.field === 'departmentId'
+      )
+      departmentItem!.options = store.state.entirDepartment.map((item) => {
+        return { title: item.name, value: item.id }
+      })
+
+      return modalConfig
+    })
+
+    // 3.调用hook获取公共的变量和函数
     const [pageModalRef, defaultInfo, handleNewData, handleEditData] =
       usePageModal(newCallBack, editCallBack)
 
@@ -69,7 +92,7 @@ export default defineComponent({
       pageContentRef,
       handleResetClick,
       handleSearchClick,
-      modalConfig,
+      modalConfigRef,
       handleNewData,
       handleEditData,
       pageModalRef,
