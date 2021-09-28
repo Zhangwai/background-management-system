@@ -7,8 +7,9 @@
 <script lang="ts" setup>
 // 使用setup新特性
 import { ref, onMounted, defineProps, withDefaults } from 'vue'
-import * as echarts from 'echarts'
 import { EChartsOption } from 'echarts'
+
+import useEchart from '../hooks/useEchart'
 
 // defineProps定义props，withDefaults设置默认值
 const props = withDefaults(
@@ -28,13 +29,8 @@ const echartDivRef = ref<HTMLElement>()
 
 // 挂载后echartDivRef.value才有值
 onMounted(() => {
-  // 可传三个参数(dom, theme, 渲染器)
-  // (echartDivRef.value!, 'light', { renderer: 'svg/canvas' })
-  const echartInstance = echarts.init(echartDivRef.value!)
-  // 指定图表的配置项和数据
-
-  // 使用刚指定的配置项和数据显示图表
-  echartInstance.setOption(props.options)
+  const { setOptions } = useEchart(echartDivRef.value!)
+  setOptions(props.options)
 })
 </script>
 
