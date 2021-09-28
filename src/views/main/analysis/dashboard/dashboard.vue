@@ -3,7 +3,9 @@
     <!-- 10px的间距 -->
     <el-row :gutter="10">
       <el-col :span="7">
-        <lx-card title="分类商品数量(饼图)"></lx-card>
+        <lx-card title="分类商品数量(饼图)">
+          <pie-echart :pieData="categoryGoodsCount" />
+        </lx-card>
       </el-col>
       <el-col :span="10">
         <lx-card title="不同城市商品销量"></lx-card>
@@ -18,55 +20,39 @@
         <lx-card title="分类商品的销量"></lx-card>
       </el-col>
       <el-col :span="12">
-        <lx-card title="分类商品的收藏">
-          <base-echart :options="options" />
-        </lx-card>
+        <lx-card title="分类商品的收藏"></lx-card>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { useStore } from 'vuex'
+import { defineComponent, computed } from 'vue'
+import { useStore } from '@/store'
 
 import LxCard from '@/base-ui/card'
-import BaseEchart from '@/base-ui/echart'
+import { PieEchart } from '@/components/page-echarts'
 
 export default defineComponent({
   name: 'dashboard',
   components: {
     LxCard,
-    BaseEchart
+    PieEchart
   },
   setup() {
     const store = useStore()
     // 发起网络请求
     store.dispatch('dashboardModule/getDashboardDataAction')
 
-    const options = {
-      title: {
-        text: 'ECharts 入门示例'
-      },
-      tooltip: {},
-      legend: {
-        data: ['销量']
-      },
-      xAxis: {
-        data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-      },
-      yAxis: {},
-      series: [
-        {
-          name: '销量',
-          type: 'bar',
-          data: [5, 20, 36, 10, 10, 20]
-        }
-      ]
-    }
+    const categoryGoodsCount = computed(() => {
+      // map映射
+      return store.state.dashboardModule.categoryGoodsCount.map((item: any) => {
+        return { name: item.name, value: item.goodsCount }
+      })
+    })
 
     return {
-      options
+      categoryGoodsCount
     }
   }
 })

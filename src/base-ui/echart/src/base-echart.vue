@@ -6,12 +6,13 @@
 
 <script lang="ts" setup>
 // 使用setup新特性
-import { ref, onMounted, defineProps, withDefaults } from 'vue'
+import { ref, onMounted, defineProps, withDefaults, watchEffect } from 'vue'
 import { EChartsOption } from 'echarts'
 
 import useEchart from '../hooks/useEchart'
 
 // defineProps定义props，withDefaults设置默认值
+// 泛型表示接收一些什么样的属性
 const props = withDefaults(
   defineProps<{
     width?: string
@@ -30,7 +31,11 @@ const echartDivRef = ref<HTMLElement>()
 // 挂载后echartDivRef.value才有值
 onMounted(() => {
   const { setOptions } = useEchart(echartDivRef.value!)
-  setOptions(props.options)
+
+  // 当数据重新改变时，重新设置setOptions
+  watchEffect(() => {
+    setOptions(props.options)
+  })
 })
 </script>
 
