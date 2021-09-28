@@ -24,7 +24,9 @@
         </lx-card>
       </el-col>
       <el-col :span="12">
-        <lx-card title="分类商品的收藏"></lx-card>
+        <lx-card title="分类商品的收藏">
+          <bar-echart v-bind="categoryGoodsFavor"></bar-echart>
+        </lx-card>
       </el-col>
     </el-row>
   </div>
@@ -36,7 +38,12 @@ import { useStore } from '@/store'
 
 import LxCard from '@/base-ui/card'
 
-import { PieEchart, RoseEchart, LineEchart } from '@/components/page-echarts'
+import {
+  PieEchart,
+  RoseEchart,
+  LineEchart,
+  BarEchart
+} from '@/components/page-echarts'
 
 export default defineComponent({
   name: 'dashboard',
@@ -44,7 +51,8 @@ export default defineComponent({
     LxCard,
     PieEchart,
     RoseEchart,
-    LineEchart
+    LineEchart,
+    BarEchart
   },
   setup() {
     const store = useStore()
@@ -52,6 +60,7 @@ export default defineComponent({
     store.dispatch('dashboardModule/getDashboardDataAction')
 
     // 获取数据
+    // 饼图及玫瑰图
     const categoryGoodsCount = computed(() => {
       // map映射
       return store.state.dashboardModule.categoryGoodsCount.map((item: any) => {
@@ -59,6 +68,7 @@ export default defineComponent({
       })
     })
 
+    // 折线图
     const categoryGoodsSale = computed(() => {
       const xLabels: string[] = []
       const values: any[] = []
@@ -72,9 +82,22 @@ export default defineComponent({
       return { xLabels, values }
     })
 
+    // 柱状图
+    const categoryGoodsFavor = computed(() => {
+      const xLabels: string[] = []
+      const values: any[] = []
+
+      const categoryGoodsFavor = store.state.dashboardModule.categoryGoodsFavor
+      for (const item of categoryGoodsFavor) {
+        xLabels.push(item.name)
+        values.push(item.goodsFavor)
+      }
+      return { xLabels, values }
+    })
     return {
       categoryGoodsCount,
-      categoryGoodsSale
+      categoryGoodsSale,
+      categoryGoodsFavor
     }
   }
 })
