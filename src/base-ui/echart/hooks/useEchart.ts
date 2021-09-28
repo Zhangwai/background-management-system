@@ -1,5 +1,10 @@
 import * as echarts from 'echarts'
 
+// 注册地图
+import ChinaMapData from '../data/china.json'
+
+echarts.registerMap('china', ChinaMapData)
+
 export default function (el: HTMLElement) {
   // 可传三个参数(dom, theme, 渲染器)
   // (echartDivRef.value!, 'light', { renderer: 'svg/canvas' })
