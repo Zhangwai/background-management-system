@@ -15,6 +15,7 @@ export interface IFormItem {
 
 // 将属性合并到一起
 export interface IForm {
+  title?: string
   formItems: IFormItem[]
   labelWidth?: string
   colLayout?: any
