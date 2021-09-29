@@ -20,6 +20,14 @@
         </el-dropdown-menu>
       </template>
     </el-dropdown>
+    <div class="operation">
+      <span><i class="el-icon-bell"></i></span>
+      <span><i class="el-icon-chat-dot-round"></i></span>
+      <span>
+        <span class="dot"></span>
+        <i class="el-icon-postcard"></i>
+      </span>
+    </div>
   </div>
 </template>
 
@@ -55,17 +63,51 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
-.el-dropdown-link {
+.user-info {
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
-  cursor: pointer;
+  .el-dropdown-link {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 
-  .user-name {
-    margin-left: 15px;
+    .user-name {
+      margin-left: 15px;
+      font-size: 16px;
+    }
+  }
+  .el-icon-arrow-down {
     font-size: 16px;
   }
-}
-.el-icon-arrow-down {
-  font-size: 16px;
+  .operation {
+    margin-right: 20px;
+    span {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 35px;
+      line-height: 35px;
+
+      &:hover {
+        background: #f2f2f2;
+      }
+
+      i {
+        font-size: 20px;
+      }
+
+      .dot {
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        z-index: 10;
+        width: 6px;
+        height: 6px;
+        background: red;
+        border-radius: 100%;
+      }
+    }
+  }
 }
 </style>
