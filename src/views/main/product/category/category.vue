@@ -1,9 +1,14 @@
 <template>
   <div class="category">
-    <page-search :searchFormConfig="searchFormConfig" />
+    <page-search
+      :searchFormConfig="searchFormConfig"
+      @resetBtnClick="handleResetClick"
+      @searchBtnClick="handleSearchClick"
+    />
     <page-content
       :contentTableConfig="contentTableConfig"
       pageName="category"
+      ref="pageContentRef"
     />
   </div>
 </template>
@@ -17,6 +22,8 @@ import pageSearch from '@/components/page-search'
 import { searchFormConfig } from './config/search.config'
 import { contentTableConfig } from './config/content.config'
 
+import { usePageSearch } from '@/hooks/usePageSearch'
+
 export default defineComponent({
   name: 'category',
   components: {
@@ -24,9 +31,15 @@ export default defineComponent({
     PageContent
   },
   setup() {
+    // 重置、搜索的hooks
+    const [pageContentRef, handleResetClick, handleSearchClick] =
+      usePageSearch()
     return {
       searchFormConfig,
-      contentTableConfig
+      contentTableConfig,
+      pageContentRef,
+      handleResetClick,
+      handleSearchClick
     }
   }
 })

@@ -1,42 +1,7 @@
 export const contentTableConfig = {
   title: '分类列表',
   propList: [
-    { prop: 'name', label: '商品名称', minWidth: '80' },
-    { prop: 'oldPrice', label: '原价', minWidth: '60', slotName: 'oldPrice' },
-    { prop: 'newPrice', label: '现价', minWidth: '60', slotName: 'newPrice' },
-    { prop: 'desc', label: '描述', minWidth: '60' },
-    { prop: 'status', label: '状态', minWidth: '60', slotName: 'status' },
-    { prop: 'imgUrl', label: '商品图片', minWidth: '80', slotName: 'image' },
-    {
-      prop: 'inventoryCount',
-      label: '库存数量',
-      minWidth: '80',
-      slotName: 'inventoryCount'
-    },
-    {
-      prop: 'saleCount',
-      label: '销售数量',
-      minWidth: '80',
-      slotName: 'saleCount'
-    },
-    {
-      prop: 'favorCount',
-      label: '收藏数量',
-      minWidth: '80',
-      slotName: 'favorCount'
-    },
-    {
-      prop: 'address',
-      label: '地址',
-      minWidth: '60',
-      slotName: 'address'
-    },
-    {
-      prop: 'categoryId',
-      label: '分类号',
-      minWidth: '70',
-      slotName: 'categoryId'
-    },
+    { prop: 'name', label: '商品分类', minWidth: '120' },
     {
       prop: 'createAt',
       label: '创建时间',
