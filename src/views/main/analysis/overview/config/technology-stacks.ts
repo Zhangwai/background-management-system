@@ -46,7 +46,7 @@ export const technologyStacks = [
 
   {
     title: '工具库',
-    desp: ' @vueuse/core + dayjs + countup.js'
+    desp: ' @vueuse/core + dayjs'
   },
 
   {

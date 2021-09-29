@@ -2,7 +2,7 @@
   <div class="page-modal">
     <el-dialog
       v-model="dialogVisible"
-      title="新建用户"
+      title="modalConfig.title"
       width="30%"
       center
       destroy-on-close

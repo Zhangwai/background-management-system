@@ -1,7 +1,7 @@
 <template>
   <div class="list">
     <page-content
-      :contentConfig="contentTableConfig"
+      :contentTableConfig="contentTableConfig"
       pageName="story"
     ></page-content>
   </div>

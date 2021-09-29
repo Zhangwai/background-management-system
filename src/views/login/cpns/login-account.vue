@@ -3,11 +3,15 @@
     <el-form label-width="60px" :rules="rules" :model="account" ref="formRef">
       <!-- prop="name"匹配规则 -->
       <el-form-item label="账号" prop="name">
-        <el-input v-model="account.name" />
+        <el-input v-model="account.name" placeholder="coderwhy" />
       </el-form-item>
       <el-form-item label="密码" prop="password">
         <!-- show-password隐藏密码 -->
-        <el-input v-model="account.password" show-password />
+        <el-input
+          v-model="account.password"
+          show-password
+          placeholder="123456"
+        />
       </el-form-item>
     </el-form>
   </div>
