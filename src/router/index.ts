@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router' //表示导入的是个类型
 
 import localCache from '@/utils/cache'
@@ -29,7 +29,8 @@ const routes: RouteRecordRaw[] = [
 
 const router = createRouter({
   routes,
-  history: createWebHistory()
+  // createWebHistory
+  history: createWebHashHistory()
 })
 
 router.beforeEach((to) => {
