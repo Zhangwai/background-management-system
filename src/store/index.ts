@@ -5,6 +5,7 @@ import { IRootState, IStoreType } from './types'
 import loginModule from './login/login'
 import systemModule from './main/system/system'
 import dashboardModule from './main/analysis/dashboard'
+import listModule from './main/story/list'
 
 import { getPageListData } from '@/service/main/system/system'
 
@@ -60,7 +61,8 @@ const store = createStore<IRootState>({
   modules: {
     loginModule,
     systemModule,
-    dashboardModule
+    dashboardModule,
+    listModule
   }
 })
 
