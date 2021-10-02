@@ -8,24 +8,44 @@
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item icon="el-icon-circle-close" @click="handleExitClick"
-            >退出登录</el-dropdown-item
-          >
-          <el-dropdown-item divided icon="el-icon-user"
-            >用户信息</el-dropdown-item
-          >
-          <el-dropdown-item divided icon="el-icon-setting"
-            >系统管理</el-dropdown-item
-          >
+          <el-dropdown-item @click="handleExitClick">
+            <el-icon style="vertical-align: middle">
+              <circle-close />
+            </el-icon>
+            <span style="vertical-align: middle">退出登录</span>
+          </el-dropdown-item>
+          <el-dropdown-item divided>
+            <el-icon style="vertical-align: middle">
+              <user />
+            </el-icon>
+            <span style="vertical-align: middle">用户信息</span>
+          </el-dropdown-item>
+          <el-dropdown-item divided>
+            <el-icon style="vertical-align: middle">
+              <setting />
+            </el-icon>
+            <span style="vertical-align: middle">系统管理</span>
+          </el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
     <div class="operation">
-      <span><i class="el-icon-bell"></i></span>
-      <span><i class="el-icon-chat-dot-round"></i></span>
+      <span>
+        <el-icon style="vertical-align: middle">
+          <bell />
+        </el-icon>
+      </span>
+      <span>
+        <el-icon style="vertical-align: middle">
+          <chat-dot-round />
+        </el-icon>
+      </span>
+      <!-- <span><i class="el-icon-chat-dot-round"></i></span> -->
       <span>
         <span class="dot"></span>
-        <i class="el-icon-postcard"></i>
+        <el-icon style="vertical-align: middle">
+          <postcard />
+        </el-icon>
       </span>
     </div>
   </div>
@@ -80,6 +100,7 @@ export default defineComponent({
   .el-icon-arrow-down {
     font-size: 16px;
   }
+
   .operation {
     margin-right: 20px;
     span {
@@ -99,8 +120,8 @@ export default defineComponent({
 
       .dot {
         position: absolute;
-        top: 3px;
-        right: 3px;
+        top: 7px;
+        right: 7px;
         z-index: 10;
         width: 6px;
         height: 6px;

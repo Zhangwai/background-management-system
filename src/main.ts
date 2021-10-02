@@ -6,6 +6,8 @@ import { globalRegister } from './global'
 import 'normalize.css'
 import './assets/css/index.less'
 
+// import '@element-plus/icons'
+
 // 全局引入ElementPlus
 // import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css' // 引入样式

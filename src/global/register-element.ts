@@ -40,8 +40,21 @@ import {
   ElCard,
   ElDescriptions,
   ElDescriptionsItem,
-  ElTag
+  ElTag,
+  ElIcon
 } from 'element-plus'
+import {
+  CircleClose,
+  User,
+  Setting,
+  ChatDotRound,
+  Bell,
+  Postcard,
+  UserFilled,
+  Iphone,
+  Search,
+  Refresh
+} from '@element-plus/icons'
 
 const components = [
   ElButton,
@@ -81,7 +94,18 @@ const components = [
   ElCard,
   ElDescriptions,
   ElDescriptionsItem,
-  ElTag
+  ElTag,
+  ElIcon,
+  CircleClose,
+  User,
+  Setting,
+  ChatDotRound,
+  Bell,
+  Postcard,
+  UserFilled,
+  Iphone,
+  Search,
+  Refresh
 ]
 
 export default function (app: App): void {

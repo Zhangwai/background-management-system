@@ -9,7 +9,13 @@
       <!-- v-model:page取了个page的名字 -->
       <!-- 1.hander中的插槽 -->
       <template #handerHandler>
-        <el-button size="medium" icon="el-icon-refresh">刷新</el-button>
+        <!-- <el-button size="medium" icon="el-icon-refresh">刷新</el-button> -->
+        <el-button size="medium">
+          <el-icon style="vertical-align: middle">
+            <refresh />
+          </el-icon>
+          <span style="vertical-align: middle"> 刷新 </span>
+        </el-button>
         <el-button
           v-if="isCreate"
           size="medium"

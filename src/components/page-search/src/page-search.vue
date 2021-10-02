@@ -7,15 +7,18 @@
       </template>
       <template #footer>
         <div class="handle-btns">
-          <el-button icon="el-icon-refresh" @click="handleResetClick"
-            >重置</el-button
-          >
-          <el-button
-            type="primary"
-            icon="el-icon-search"
-            @click="handleSearchClick"
-            >搜索</el-button
-          >
+          <el-button @click="handleResetClick">
+            <el-icon style="vertical-align: middle">
+              <refresh />
+            </el-icon>
+            <span style="vertical-align: middle"> 重置 </span>
+          </el-button>
+          <el-button type="primary" @click="handleSearchClick">
+            <el-icon style="vertical-align: middle">
+              <search />
+            </el-icon>
+            <span style="vertical-align: middle"> 搜索 </span>
+          </el-button>
         </div>
       </template>
     </lx-form>
