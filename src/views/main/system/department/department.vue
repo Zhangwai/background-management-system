@@ -51,7 +51,7 @@ export default defineComponent({
     // 2.动态添加角色和部门的逻辑
     const store = useStore()
     const modalConfigRef = computed(() => {
-      const departmentItem = modalConfig.formItems.find(
+      const departmentItem = modalConfig.formItems?.find(
         (item) => item.field === 'departmentId'
       )
       departmentItem!.options = store.state.entireDepartment.map((item) => {
