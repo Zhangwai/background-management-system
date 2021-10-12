@@ -9,6 +9,7 @@ export interface IRootState {
   entireRole: any[]
   entireDepartment: any[]
   entireMenu: any[]
+  entireCategory: any[]
 }
 
 // setup中使用useStore技巧
