@@ -11,7 +11,16 @@
       ref="pageContentRef"
       @newBtnClick="handleNewData"
       @editBtnClick="handleEditData"
-    />
+    >
+      <template #status="scope">
+        <el-button
+          size="mini"
+          :type="scope.row.enable ? 'success' : 'danger'"
+          plain
+          >{{ scope.row.enable ? '启用' : '禁用' }}</el-button
+        >
+      </template>
+    </page-content>
     <page-modal
       :modalConfig="modalConfigRef"
       ref="pageModalRef"

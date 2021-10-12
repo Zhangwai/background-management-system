@@ -27,14 +27,14 @@
 
       <!-- 2.列中的插槽 -->
       <!-- 这个应该不是公共的插槽 -->
-      <template #status="scope">
+      <!-- <template #status="scope">
         <el-button
           size="mini"
           :type="scope.row.enable ? 'success' : 'danger'"
           plain
           >{{ scope.row.enable ? '启用' : '禁用' }}</el-button
         >
-      </template>
+      </template> -->
       <template #createAt="scope">
         <!-- 时间格式化 -->
         <span>{{ $filters.formatTime(scope.row.createAt) }}</span>
@@ -64,7 +64,7 @@
         </div>
       </template>
 
-      <!-- 3.在pahe-content中动态插入剩余(各个页面私有的)的插槽 -->
+      <!-- 3.在page-content中动态插入剩余(各个页面私有的)的插槽 -->
       <template
         v-for="item in otherPropSlots"
         :key="item.prop"
@@ -144,7 +144,7 @@ export default defineComponent({
     // 4.获取其他的动态插槽名称，排除公共的插槽
     const otherPropSlots = props.contentTableConfig?.propList.filter(
       (item: any) => {
-        if (item.slotName === 'status') return false
+        // if (item.slotName === 'status') return false
         if (item.slotName === 'createAt') return false
         if (item.slotName === 'updateAt') return false
         if (item.slotName === 'handler') return false

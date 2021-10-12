@@ -5,6 +5,14 @@
       <!-- 插槽，配置goods私有的 -->
       <template #oldPrice="scope">{{ '￥' + scope.row.oldPrice }}</template>
       <template #newPrice="scope">{{ '￥' + scope.row.newPrice }}</template>
+      <template #status="scope">
+        <el-button
+          size="mini"
+          :type="scope.row.status ? 'success' : 'danger'"
+          plain
+          >{{ scope.row.status ? '在售' : '售空' }}</el-button
+        >
+      </template>
       <template #image="scope">
         <el-image
           style="width: 70px; height: 70px"
